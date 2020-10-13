@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Multitool"
         mc:Ignorable="d"
-        Title="Multitool" Height="232" Width="539" WindowStartupLocation="CenterScreen">
+        Title="Multitool" Height="332" Width="539" WindowStartupLocation="CenterScreen">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
@@ -13,28 +13,74 @@
 
         <!--#region Input -->
         <!--First string to compare -->
-        <TextBlock Text="String A" Margin="5, 0"></TextBlock>
-        <TextBox x:Name="txtBx_A" Margin="5" Height="50"></TextBox>
+        <TextBlock Text="String A" 
+                   Margin="5, 0">
+        </TextBlock>
+        <RichTextBox x:Name="rtxtBx_A" 
+                 Margin="5" 
+                 Height="50" AcceptsTab="True">
+        </RichTextBox>
 
         <!--Second string to compare -->
-        <TextBlock Text="String B" Margin="5, 0"></TextBlock>
-        <TextBox x:Name="txtBx_B" Margin="5" Height="50"></TextBox>
+        <TextBlock Text="String B" 
+                   Margin="5, 0">
+        </TextBlock>
+        <RichTextBox x:Name="rtxtBx_B" 
+                 Margin="5" 
+                 Height="50" AcceptsTab="True">
+        </RichTextBox>
         <!--#endregion-->
-
 
         <!--#region Interactive tools -->
         <Grid>
-            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
-            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
-            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-            <Button x:Name="btn_CompareStrings" Margin="5" Padding="3" Content="Compare Strings"></Button>
-            <Button x:Name="btn_Clear" Margin="5" Padding="3" Content="Clear"></Button>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-            <TextBlock x:Name="txtBlk_Result" Margin="5" Padding="3" 
-                       Text="Result" 
-                       VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"/>
+            <!-- Compare strings button -->
+            <Button x:Name="btn_CompareStrings"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Margin="5" Padding="3" 
+                    Content="Compare Strings">
+            </Button>
+
+            <!-- Clear content button -->
+            <Button x:Name="btn_Clear"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Margin="5" Padding="3" 
+                    Content="Clear">
+            </Button>
+
+            <!-- Result -->
+            <TextBox x:Name="txtBlk_Result"
+                     Grid.Column="0"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="3"
+                     Margin="5" Padding="3" 
+                     Text="Result"
+                     TextAlignment="Center" 
+                     IsInactiveSelectionHighlightEnabled="True" FontWeight="Bold" FontSize="18"/>
+
+            <!-- Region check content button -->
+            <Button x:Name="btn_Region"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Margin="5" Padding="3" 
+                    Content="Region Check">
+            </Button>
+
         </Grid>
         <!--#endregion-->
+
+
     </StackPanel>
 </Window>
