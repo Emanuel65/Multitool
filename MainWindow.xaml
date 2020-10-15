@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Multitool"
         mc:Ignorable="d"
-        Title="Multitool" Height="317" Width="709" WindowStartupLocation="CenterScreen" FontSize="20">
+        Title="Multitool" Height="482" Width="709" WindowStartupLocation="CenterScreen" FontSize="18">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
@@ -18,7 +18,19 @@
         </TextBlock>
         <RichTextBox x:Name="rtxtBx_A" 
                  Margin="5" 
-                 Height="50" TextChanged="rtxtBx_A_TextChanged"/>
+                 Height="100" 
+                 AutoWordSelection="False" 
+                 TextOptions.TextFormattingMode="Display" 
+                 GotFocus="rtxtBx_A_GotFocus" 
+                 LostFocus="rtxtBx_A_LostFocus">
+            <FlowDocument>
+                <Paragraph 
+                    FontStyle="Italic"
+                    Foreground="Gray">
+                    Generic input box
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
 
         <!--Second string to compare -->
         <TextBlock Text="String B" 
@@ -26,7 +38,8 @@
         </TextBlock>
         <RichTextBox x:Name="rtxtBx_B" 
                  Margin="5" 
-                 Height="50" TextChanged="rtxtBx_B_TextChanged"/>
+                 Height="100" AutoWordSelection="False" 
+                 TextOptions.TextFormattingMode="Display"/>
         <!--#endregion-->
 
         <!--#region Interactive tools -->
@@ -34,10 +47,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -62,20 +75,29 @@
             <!-- Result -->
             <TextBox x:Name="txtBlk_Result"
                      Grid.Column="0"
-                     Grid.Row="1"
+                     Grid.Row="2"
                      Grid.ColumnSpan="3"
                      Margin="5" Padding="3" 
                      Text="Result"
                      TextAlignment="Center" 
-                     IsInactiveSelectionHighlightEnabled="True" FontWeight="Bold" FontSize="18" IsReadOnly="True" IsUndoEnabled="True"/>
+                     IsInactiveSelectionHighlightEnabled="True" 
+                     FontSize="18" IsReadOnly="True" 
+                     IsTabStop="False"/>
 
             <!-- Region check content button -->
             <Button x:Name="btn_Region"
-                    Grid.Column="2"
-                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.Row="1"
                     Margin="5" Padding="3" 
-                    Content="Region Check">
+                    Content="Region Check" Click="btn_Region_Click">
             </Button>
+
+            <!-- Region check content button -->
+            <Button x:Name="btn_ProperCase"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="5" Padding="3" 
+                    Content="Get Proper Case" Click="btn_ProperCase_Click"/>
 
         </Grid>
         <!--#endregion-->
