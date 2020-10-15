@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Multitool"
         mc:Ignorable="d"
-        Title="Multitool" Height="482" Width="709" WindowStartupLocation="CenterScreen" FontSize="18">
+        Title="Multitool" Height="482" Width="709" WindowStartupLocation="CenterScreen" FontSize="18" Icon="tools-182-433420.png">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
