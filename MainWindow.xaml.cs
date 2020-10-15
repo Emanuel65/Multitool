@@ -16,13 +16,22 @@ namespace Multitool
 
         private void btn_CompareStrings_Click(object sender, RoutedEventArgs e)
         {
+
+
             // Get the start/end point of the content for box A
             var inputStartA = rtxtBx_A.Document.ContentStart;
             var inputEndA = rtxtBx_A.Document.ContentEnd;
 
+
             // Get the start/end point of the content for box B
             var inputStartB = rtxtBx_B.Document.ContentStart;
             var inputEndB = rtxtBx_B.Document.ContentEnd;
+
+            // Set text bacgkround to white
+            rtxtBx_A.SelectAll();
+            rtxtBx_B.SelectAll();
+            rtxtBx_A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+            rtxtBx_B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
 
             // Get the content for text box A and B
             var inputA = new TextRange(inputStartA, inputEndA).Text;
@@ -80,16 +89,56 @@ namespace Multitool
 
                 }
 
+
+
                 // If the two strings are not the same length...
                 if (inputA.Length != inputB.Length)
                 {
-                    // Inform the user and return
+                    // Inform the user their lengths are different
                     txtBlk_Result.Text = "Different length!";
+                    txtBlk_Result.Background = Brushes.LightSalmon;
+                }
+                // Otherwise...
+                else
+                {
+                    // Inform the user they just don't match
+                    txtBlk_Result.Text = "No match!";
                     txtBlk_Result.Background = Brushes.LightSalmon;
                 }
             }
 
         }
 
+        // Clear the input
+        private void btn_Clear_Click(object sender, RoutedEventArgs e)
+        {
+            //Clear both boxes of content
+            rtxtBx_A.Document.Blocks.Clear();
+            rtxtBx_B.Document.Blocks.Clear();
+
+            //Resets the text of the result box
+            txtBlk_Result.Text = "Result";
+        }
+
+        //Reset the result box when new text is entered in box A
+        private void rtxtBx_A_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            ResetResult();
+        }
+
+        //Reset the result box when new text is entered in box A
+        private void rtxtBx_B_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            ResetResult();
+        }
+
+        private void ResetResult()
+        {
+            if (txtBlk_Result.Text != "Result")
+            {
+                txtBlk_Result.Text = "Result";
+                txtBlk_Result.Background = Brushes.White;
+            }
+        }
     }
 }

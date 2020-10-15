@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Multitool"
         mc:Ignorable="d"
-        Title="Multitool" Height="377" Width="979" WindowStartupLocation="CenterScreen" FontSize="36">
+        Title="Multitool" Height="317" Width="709" WindowStartupLocation="CenterScreen" FontSize="20">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
@@ -18,7 +18,7 @@
         </TextBlock>
         <RichTextBox x:Name="rtxtBx_A" 
                  Margin="5" 
-                 Height="50"/>
+                 Height="50" TextChanged="rtxtBx_A_TextChanged"/>
 
         <!--Second string to compare -->
         <TextBlock Text="String B" 
@@ -26,7 +26,7 @@
         </TextBlock>
         <RichTextBox x:Name="rtxtBx_B" 
                  Margin="5" 
-                 Height="50"/>
+                 Height="50" TextChanged="rtxtBx_B_TextChanged"/>
         <!--#endregion-->
 
         <!--#region Interactive tools -->
@@ -56,7 +56,7 @@
                     Grid.Column="1"
                     Grid.Row="0"
                     Margin="5" Padding="3" 
-                    Content="Clear">
+                    Content="Clear" Click="btn_Clear_Click">
             </Button>
 
             <!-- Result -->
