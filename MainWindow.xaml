@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Multitool"
         mc:Ignorable="d"
-        Title="Multitool" Height="332" Width="539" WindowStartupLocation="CenterScreen">
+        Title="Multitool" Height="377" Width="979" WindowStartupLocation="CenterScreen" FontSize="36">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
@@ -18,8 +18,7 @@
         </TextBlock>
         <RichTextBox x:Name="rtxtBx_A" 
                  Margin="5" 
-                 Height="50" AcceptsTab="True">
-        </RichTextBox>
+                 Height="50"/>
 
         <!--Second string to compare -->
         <TextBlock Text="String B" 
@@ -27,8 +26,7 @@
         </TextBlock>
         <RichTextBox x:Name="rtxtBx_B" 
                  Margin="5" 
-                 Height="50" AcceptsTab="True">
-        </RichTextBox>
+                 Height="50"/>
         <!--#endregion-->
 
         <!--#region Interactive tools -->
@@ -46,6 +44,7 @@
 
             <!-- Compare strings button -->
             <Button x:Name="btn_CompareStrings"
+                    Click="btn_CompareStrings_Click"
                     Grid.Column="0"
                     Grid.Row="0"
                     Margin="5" Padding="3" 
@@ -68,7 +67,7 @@
                      Margin="5" Padding="3" 
                      Text="Result"
                      TextAlignment="Center" 
-                     IsInactiveSelectionHighlightEnabled="True" FontWeight="Bold" FontSize="18"/>
+                     IsInactiveSelectionHighlightEnabled="True" FontWeight="Bold" FontSize="18" IsReadOnly="True" IsUndoEnabled="True"/>
 
             <!-- Region check content button -->
             <Button x:Name="btn_Region"
