@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Multitool"
         mc:Ignorable="d"
         Title="Multitool" Height="482" Width="709" WindowStartupLocation="CenterScreen" FontSize="18" Icon="tools-182-433420.png">
     <Window.Effect>
@@ -39,7 +38,8 @@
         <RichTextBox x:Name="rtxtBx_B" 
                  Margin="5" 
                  Height="100" AutoWordSelection="False" 
-                 TextOptions.TextFormattingMode="Display"/>
+                 TextOptions.TextFormattingMode="Display"
+                 GotFocus="rtxtBx_B_GotFocus"/>
         <!--#endregion-->
 
         <!--#region Interactive tools -->

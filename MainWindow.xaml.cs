@@ -12,7 +12,7 @@ namespace Multitool
     {
         // Assign the logical direction forward/backward to a single variable
         LogicalDirection fwd = LogicalDirection.Forward;
-        LogicalDirection bckwd = LogicalDirection.Backward;
+        //LogicalDirection bckwd = LogicalDirection.Backward;
 
         // Set the temp text to be displayed
         string placeHolderText = "Generic input box";
@@ -92,14 +92,12 @@ namespace Multitool
                     navigatorB = rtxtBx_B.CaretPosition.GetNextInsertionPosition(fwd);
 
                 }
-
-
-
                 // If the two strings are not the same length...
                 if (inputA.Length != inputB.Length)
                 {
                     // Inform the user their lengths are different
-                    WrongResult("Different length!");
+                    WrongResult($"Different length! " +
+                        $"String {(inputA.Length > inputB.Length ? "A" : "B")} is longer.");
                 }
                 // Otherwise...
                 else
@@ -130,10 +128,6 @@ namespace Multitool
             // Reset result to start off clean
             ResetResult();
 
-            // Get the start/end point of the content for box A
-            var inputStartA = rtxtBx_A.Document.ContentStart;
-            var inputEndA = rtxtBx_A.Document.ContentEnd;
-
             // Get the trimmed content for text box A and B
             var inputA = GetTextInA(true);
 
@@ -144,7 +138,7 @@ namespace Multitool
                 if (int.TryParse(inputA.Substring(0, 2), out int numbers))
                 {
                     // Create local dictionary to store the values
-                    RegionDictionary _localRegionList = RegionList.ReturnRegionList(); ;
+                    RegionDictionary _localRegionList = RegionList.ReturnRegionList();
 
                     // If the numbers provided are 
                     if (_localRegionList.ContainsKey(numbers))
@@ -164,9 +158,8 @@ namespace Multitool
         // Clears the temporary text on focus
         private void rtxtBx_A_GotFocus(object sender, RoutedEventArgs e)
         {
-
-            // Get the current contents of the text box
-            var txt = new TextRange(rtxtBx_A.Document.ContentStart, rtxtBx_A.Document.ContentEnd).Text.Trim();
+            // Get the current contents of text box A
+            var txt = GetTextInA(true);
 
             // Change the text only if the text is the temp text
             if (txt.Equals(placeHolderText))
@@ -196,6 +189,10 @@ namespace Multitool
             txtBlk_Result.Text = tempText;
 
             //rtxtBx_A.Document.Blocks.Add(new Paragraph(new Run(tempText)));
+        }
+        private void rtxtBx_B_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SetTempText();
         }
 
         #region Helper Methods
@@ -229,7 +226,7 @@ namespace Multitool
         /// </summary>
         private void SetTempText()
         {
-            string txt = GetTextInA(false);
+            string txt = GetTextInA(true);
 
             // Change the text only if there is no text
             if (string.IsNullOrEmpty(txt))

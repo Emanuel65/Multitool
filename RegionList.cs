@@ -1,7 +1,11 @@
 ﻿namespace Multitool
 {
+    /// <summary>
+    /// Simple class to hold a list of regions
+    /// </summary>
     class RegionList
     {
+        // Returns the modified version of the Dictionary class with all the values
         public static RegionDictionary ReturnRegionList()
         {
             var list = new RegionDictionary();
