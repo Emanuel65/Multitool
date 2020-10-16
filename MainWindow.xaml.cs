@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -145,14 +144,14 @@ namespace Multitool
                 if (int.TryParse(inputA.Substring(0, 2), out int numbers))
                 {
                     // Create local dictionary to store the values
-                    Dictionary<int, RegionData> _localDict = RegionData.regionDictionary;
+                    RegionDictionary _localRegionList = RegionList.ReturnRegionList(); ;
 
                     // If the numbers provided are 
-                    if (RegionData.regionDictionary.ContainsKey(numbers))
+                    if (_localRegionList.ContainsKey(numbers))
                     {
                         txtBlk_Result.Text =
-                        $"Region name: {_localDict[numbers].regionName} " +
-                        $"BRP code: {_localDict[numbers].brpCode}";
+                        $"Region name: {_localRegionList[numbers].RegionName} " +
+                        $"BRP code: {_localRegionList[numbers].BrpCode:00}";
                     }
                 }
                 else
