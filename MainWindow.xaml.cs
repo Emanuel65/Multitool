@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -25,23 +26,33 @@ namespace Multitool
 
         private void btn_CompareStrings_Click(object sender, RoutedEventArgs e)
         {
+            // Group the two text boxes together
+            (RichTextBox A, RichTextBox B) txtBox = (rtxtBx_A, rtxtBx_B);
+
+            // Group the two text boxes' documents together
+            (FlowDocument A, FlowDocument B) txtBox_Doc = (txtBox.A.Document, txtBox.B.Document);
+
             // Get the start/end point of the content for box A
-            var inputStartA = rtxtBx_A.Document.ContentStart;
-            var inputEndA = rtxtBx_A.Document.ContentEnd;
+            (TextPointer start, TextPointer end) txtBoxLimit_A = (txtBox_Doc.A.ContentStart, txtBox_Doc.A.ContentEnd);
 
             // Get the start/end point of the content for box B
-            var inputStartB = rtxtBx_B.Document.ContentStart;
-            var inputEndB = rtxtBx_B.Document.ContentEnd;
+            (TextPointer start, TextPointer end) txtBoxLimit_B = (txtBox_Doc.B.ContentStart, txtBox_Doc.B.ContentEnd);
 
             // Set text bacgkround to white
-            rtxtBx_A.SelectAll();
-            rtxtBx_B.SelectAll();
-            rtxtBx_A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
-            rtxtBx_B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+            txtBox.A.SelectAll();
+            txtBox.B.SelectAll();
+            txtBox.A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+            txtBox.B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
 
             // Get the content for text box A and B
-            var inputA = new TextRange(inputStartA, inputEndA).Text;
-            var inputB = new TextRange(inputStartB, inputEndB).Text;
+
+            (TextRange A, TextRange B) txtBox_Range =
+                (new TextRange(txtBoxLimit_A.start, txtBoxLimit_A.end), new TextRange(txtBoxLimit_B.start, txtBoxLimit_B.end));
+
+            (string A, string B) txtBox_Text = (txtBox_Range.A.Text, txtBox_Range.B.Text);
+
+            var inputA = new TextRange(txtBoxLimit_A.start, txtBoxLimit_A.end).Text;
+            var inputB = new TextRange(rtxtBx_A.Document.ContentStart, rtxtBx_A.Document.ContentEnd).Text;
 
 
             // Get the TextPointer to the start of the text content for text box A and B
