@@ -44,6 +44,7 @@ namespace Multitool
             txtBox.A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
             txtBox.B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
 
+<<<<<<< Updated upstream
             // Get the content for text box A and B
 
             (TextRange A, TextRange B) txtBox_Range =
@@ -53,11 +54,19 @@ namespace Multitool
 
             var inputA = new TextRange(txtBoxLimit_A.start, txtBoxLimit_A.end).Text;
             var inputB = new TextRange(rtxtBx_A.Document.ContentStart, rtxtBx_A.Document.ContentEnd).Text;
+=======
+            // Get the text boxes' content
+            (TextRange A, TextRange B) txtBox_Range =
+                (new TextRange(txtBoxLimit_A.start, txtBoxLimit_A.end),
+                new TextRange(txtBoxLimit_B.start, txtBoxLimit_B.end));
+>>>>>>> Stashed changes
 
+            // Get the text boxes' actual text
+            (string A, string B) txtBox_Text = (txtBox_Range.A.Text, txtBox_Range.B.Text);
 
             // Get the TextPointer to the start of the text content for text box A and B
-            var insStartA = inputStartA.GetInsertionPosition(fwd);
-            var insStartB = inputStartB.GetInsertionPosition(fwd);
+            var insStartA = txtBoxLimit_A.start.GetInsertionPosition(fwd);
+            var insStartB = txtBoxLimit_B.start.GetInsertionPosition(fwd);
 
             // Set a TextPointer for the current position
             var navigatorA = insStartA.GetNextInsertionPosition(fwd);
@@ -67,8 +76,9 @@ namespace Multitool
             rtxtBx_A.CaretPosition = insStartA;
             rtxtBx_B.CaretPosition = insStartB;
 
+
             // If the inputs are the same...
-            if (inputA.Equals(inputB))
+            if (txtBox_Text.A.Equals(txtBox_Text.B))
             {
                 // Set the text to "Match!" and background to light green
                 txtBlk_Result.Text = "Match!";
@@ -107,7 +117,7 @@ namespace Multitool
 
 
                 // If the two strings are not the same length...
-                if (inputA.Length != inputB.Length)
+                if (txtBox_Text.A.Length != txtBox_Text.B.Length)
                 {
                     // Inform the user their lengths are different
                     WrongResult("Different length!");
@@ -175,7 +185,10 @@ namespace Multitool
         // Clears the temporary text on focus
         private void rtxtBx_A_GotFocus(object sender, RoutedEventArgs e)
         {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             // Get the current contents of the text box
             var txt = new TextRange(rtxtBx_A.Document.ContentStart, rtxtBx_A.Document.ContentEnd).Text.Trim();
 
@@ -184,6 +197,11 @@ namespace Multitool
             {
                 rtxtBx_A.Document.Blocks.Clear();
             }
+        }
+
+        private void rtxtBx_B_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SetTempText();
         }
 
         // Adds the temp text back when focus is lost
