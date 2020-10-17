@@ -83,16 +83,15 @@ namespace Multitool
                     rtxtBx_B.Selection.Select(rtxtBx_B.CaretPosition, rtxtBx_B.CaretPosition.GetNextInsertionPosition(fwd));
 
                     // Assign the two selections to variables
-                    var selectionA = rtxtBx_A.Selection;
-                    var selectionB = rtxtBx_B.Selection;
+                    (TextSelection A, TextSelection B) txtSelection = (rtxtBx_A.Selection, rtxtBx_B.Selection);
 
-                    // wherever the selected text is different...
+                    // Wherever the selected text is different...
                     // ***Using != instead of a bang for easier readability
-                    if (selectionA.Text.Equals(selectionB.Text) != true)
+                    if (txtSelection.A.Text.Equals(txtSelection.B.Text) != true)
                     {
                         // Highlight the different characters
-                        selectionA.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
-                        selectionB.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
+                        txtSelection.A.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
+                        txtSelection.B.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
                     }
 
                     // Set the navigators to the next TextPointer position
