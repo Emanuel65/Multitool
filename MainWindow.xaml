@@ -15,7 +15,7 @@
         <TextBlock Text="String A" 
                    Margin="5, 0">
         </TextBlock>
-        <RichTextBox x:Name="rtxtBx_A" 
+        <RichTextBox x:Name="RichTextBox_A" 
                  Margin="5" 
                  Height="100" 
                  AutoWordSelection="False" 
@@ -35,7 +35,7 @@
         <TextBlock Text="String B" 
                    Margin="5, 0">
         </TextBlock>
-        <RichTextBox x:Name="rtxtBx_B" 
+        <RichTextBox x:Name="RichTextBox_B" 
                  Margin="5" 
                  Height="100" AutoWordSelection="False" 
                  TextOptions.TextFormattingMode="Display"
