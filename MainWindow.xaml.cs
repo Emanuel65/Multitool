@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -25,28 +26,35 @@ namespace Multitool
 
         private void btn_CompareStrings_Click(object sender, RoutedEventArgs e)
         {
+            // Group the two text boxes together
+            (RichTextBox A, RichTextBox B) txtBox = (rtxtBx_A, rtxtBx_B);
+
+            // Group the two text boxes' documents together
+            (FlowDocument A, FlowDocument B) txtBox_Doc = (txtBox.A.Document, txtBox.B.Document);
+
             // Get the start/end point of the content for box A
-            var inputStartA = rtxtBx_A.Document.ContentStart;
-            var inputEndA = rtxtBx_A.Document.ContentEnd;
+            (TextPointer start, TextPointer end) txtBoxLimit_A = (txtBox_Doc.A.ContentStart, txtBox_Doc.A.ContentEnd);
 
             // Get the start/end point of the content for box B
-            var inputStartB = rtxtBx_B.Document.ContentStart;
-            var inputEndB = rtxtBx_B.Document.ContentEnd;
+            (TextPointer start, TextPointer end) txtBoxLimit_B = (txtBox_Doc.B.ContentStart, txtBox_Doc.B.ContentEnd);
 
             // Set text bacgkround to white
-            rtxtBx_A.SelectAll();
-            rtxtBx_B.SelectAll();
-            rtxtBx_A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
-            rtxtBx_B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+            txtBox.A.SelectAll();
+            txtBox.B.SelectAll();
+            txtBox.A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+            txtBox.B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
 
-            // Get the content for text box A and B
-            var inputA = new TextRange(inputStartA, inputEndA).Text;
-            var inputB = new TextRange(inputStartB, inputEndB).Text;
+            // Get the text boxes' content
+            (TextRange A, TextRange B) txtBox_Range =
+                (new TextRange(txtBoxLimit_A.start, txtBoxLimit_A.end),
+                new TextRange(txtBoxLimit_B.start, txtBoxLimit_B.end));
 
+            // Get the text boxes' actual text
+            (string A, string B) txtBox_Text = (txtBox_Range.A.Text, txtBox_Range.B.Text);
 
             // Get the TextPointer to the start of the text content for text box A and B
-            var insStartA = inputStartA.GetInsertionPosition(fwd);
-            var insStartB = inputStartB.GetInsertionPosition(fwd);
+            var insStartA = txtBoxLimit_A.start.GetInsertionPosition(fwd);
+            var insStartB = txtBoxLimit_B.start.GetInsertionPosition(fwd);
 
             // Set a TextPointer for the current position
             var navigatorA = insStartA.GetNextInsertionPosition(fwd);
@@ -57,7 +65,7 @@ namespace Multitool
             rtxtBx_B.CaretPosition = insStartB;
 
             // If the inputs are the same...
-            if (inputA.Equals(inputB))
+            if (txtBox_Text.A.Equals(txtBox_Text.B))
             {
                 // Set the text to "Match!" and background to light green
                 txtBlk_Result.Text = "Match!";
@@ -75,16 +83,15 @@ namespace Multitool
                     rtxtBx_B.Selection.Select(rtxtBx_B.CaretPosition, rtxtBx_B.CaretPosition.GetNextInsertionPosition(fwd));
 
                     // Assign the two selections to variables
-                    var selectionA = rtxtBx_A.Selection;
-                    var selectionB = rtxtBx_B.Selection;
+                    (TextSelection A, TextSelection B) txtSelection = (rtxtBx_A.Selection, rtxtBx_B.Selection);
 
-                    // wherever the selected text is different...
+                    // Wherever the selected text is different...
                     // ***Using != instead of a bang for easier readability
-                    if (selectionA.Text.Equals(selectionB.Text) != true)
+                    if (txtSelection.A.Text.Equals(txtSelection.B.Text) != true)
                     {
                         // Highlight the different characters
-                        selectionA.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
-                        selectionB.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
+                        txtSelection.A.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
+                        txtSelection.B.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.Yellow);
                     }
 
                     // Set the navigators to the next TextPointer position
@@ -93,11 +100,11 @@ namespace Multitool
 
                 }
                 // If the two strings are not the same length...
-                if (inputA.Length != inputB.Length)
+                if (txtBox_Text.A.Length != txtBox_Text.B.Length)
                 {
                     // Inform the user their lengths are different
                     WrongResult($"Different length! " +
-                        $"String {(inputA.Length > inputB.Length ? "A" : "B")} is longer.");
+                        $"String {(txtBox_Text.A.Length > txtBox_Text.B.Length ? "A" : "B")} is longer.");
                 }
                 // Otherwise...
                 else
