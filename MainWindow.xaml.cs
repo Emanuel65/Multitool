@@ -38,6 +38,12 @@ namespace Multitool
             // Get the start/end point of the content for box B
             (TextPointer txtBxContStart_B, TextPointer txtBxContEnd_B) = (txtBxDoc_B.ContentStart, txtBxDoc_B.ContentEnd);
 
+            // Set text bacgkround to white
+            txtBx_A.SelectAll();
+            txtBx_B.SelectAll();
+            txtBx_A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+            txtBx_B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
+
             // Get the text boxes' content
             (TextRange txtBxRange_A, TextRange txtBxRange_B) =
                 (new TextRange(txtBxContStart_A, txtBxContEnd_A),
@@ -49,12 +55,6 @@ namespace Multitool
             // Get the TextPointer to the start of the text content for text box A and B
             var insStartA = txtBxContStart_A.GetInsertionPosition(forward);
             var insStartB = txtBxContStart_B.GetInsertionPosition(forward);
-
-            // Set text bacgkround to white
-            txtBx_A.SelectAll();
-            txtBx_B.SelectAll();
-            txtBx_A.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
-            txtBx_B.Selection.ApplyPropertyValue(TextElement.BackgroundProperty, Brushes.White);
 
             // Set a TextPointer for the current position
             var navigatorA = insStartA.GetNextInsertionPosition(forward);
