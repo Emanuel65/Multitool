@@ -73,8 +73,12 @@ namespace Multitool
 				//Otherwise...
 				else
 				{
+					// Check to make sure the text boxes aren't empty
+					bool textsExists = (string.IsNullOrWhiteSpace(txtBoxText_B) != true && (string.IsNullOrWhiteSpace(txtBoxText_A) != true));
+
 					// Loop through the characters in the text
-					while ((navigatorA != null && navigatorB != null) && (string.IsNullOrWhiteSpace(txtBoxText_B) != true))
+					while ((navigatorA != null && navigatorB != null) &&
+						textsExists)
 					{
 						// Select the next character 
 						// ***(Calling get next insertion position on caret actually moves it)
