@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RegionData.cs" />
+    <Compile Include="RegionMembers.cs" />
     <Compile Include="RegionDictionary.cs" />
     <Compile Include="RegionList.cs" />
     <Page Include="MainWindow.xaml">

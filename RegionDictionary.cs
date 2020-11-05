@@ -6,13 +6,13 @@ namespace Multitool
     /// The dictionary constructor for the region data
     /// It derives from Dictionary class so that in has the same functionality
     /// </summary>
-    class RegionDictionary : Dictionary<int, RegionData>
+    class RegionDictionary : Dictionary<int, RegionMembers>
     {
         // Overrides the Add method and takes in 3 arguments
         public void Add(int key, int brpCode, string regionName)
         {
             // Creates a new instance of the struct with the data
-            RegionData rgData = new RegionData()
+            RegionMembers rgData = new RegionMembers()
             {
                 // Initializes the instance 
                 // with the values passed in as parameters

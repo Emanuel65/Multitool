@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -24,6 +25,7 @@ namespace Multitool
 			SetTempText();
 		}
 
+		// When the Compare strings button is clicked do this:
 		private void btn_CompareStrings_Click(object sender, RoutedEventArgs e)
 		{
 			// Group the two text boxes together
@@ -53,6 +55,7 @@ namespace Multitool
 				var insStartA = txtBxContStart_A.GetInsertionPosition(forward);
 				var insStartB = txtBxContStart_B.GetInsertionPosition(forward);
 
+				// Call set all to white to reset any remaining yellow background
 				SetAllToWhite(txtBx_A, txtBx_B);
 
 				// Set a TextPointer for the current position
@@ -77,11 +80,11 @@ namespace Multitool
 					bool textsExists = (string.IsNullOrWhiteSpace(txtBoxText_B) != true && (string.IsNullOrWhiteSpace(txtBoxText_A) != true));
 
 					// Loop through the characters in the text
-					while ((navigatorA != null && navigatorB != null) &&
+					while (navigatorA != null && navigatorB != null &&
 						textsExists)
 					{
 						// Select the next character 
-						// ***(Calling get next insertion position on caret actually moves it)
+						// *** Calling the select method on the next insertion point, actually moves it ***
 						RichTextBox_A.Selection.Select(RichTextBox_A.CaretPosition, RichTextBox_A.CaretPosition.GetNextInsertionPosition(forward));
 						RichTextBox_B.Selection.Select(RichTextBox_B.CaretPosition, RichTextBox_B.CaretPosition.GetNextInsertionPosition(forward));
 
@@ -89,7 +92,7 @@ namespace Multitool
 						(TextSelection txtBxTxtSel_A, TextSelection txtBxTxtSel_B) = (RichTextBox_A.Selection, RichTextBox_B.Selection);
 
 						// Wherever the selected text is different...
-						// ***Using != instead of a bang for easier readability
+						// *** Using != instead of a bang for easier readability ***
 						if (txtBxTxtSel_A.Text.Equals(txtBxTxtSel_B.Text) != true)
 						{
 							// Highlight the different characters
@@ -125,7 +128,7 @@ namespace Multitool
 		{
 			if (GetTextInA(true) != placeHolderText)
 			{
-				// Get the text from the box
+				// Get the text from the box all set to lowercase
 				var tempText = GetTextInA(true).ToLower();
 
 				// Set-up a formating option
@@ -134,9 +137,14 @@ namespace Multitool
 				// Get the proper case into a string
 				tempText = txtInf.ToTitleCase(tempText);
 
+				// Strip all the punctuation
+				tempText = new string(tempText.Where(c => !char.IsPunctuation(c)).ToArray());
+
+				// Clear the text box
+				RichTextBox_A.Document.Blocks.Clear();
+
 				// Display the result
-				txtBlk_Result.Text = tempText;
-				txtBlk_Result.Background = Brushes.White;
+				RichTextBox_A.Document.Blocks.Add(new Paragraph(new Run(tempText)));
 			}
 		}
 

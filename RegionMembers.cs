@@ -3,7 +3,7 @@
     /// <summary>
     /// A struct to hold two values
     /// </summary>
-    struct RegionData
+    struct RegionMembers
     {
         // The BrpCode, the first value
         public int BrpCode { get; set; }
